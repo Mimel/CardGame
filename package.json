@@ -1,0 +1,9 @@
+{
+  "name": "cardgame",
+  "version": "0.0.0",
+  "description": "A card game.",
+  "devDependencies": {
+    "grunt": "~1.0.3",
+    "grunt-contrib-coffee": "~2.1.0"
+  }
+}
