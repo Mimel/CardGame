@@ -1,0 +1,8 @@
+<div>Hello, World!</div>
+{{#each allCards}}
+  {{#with this.card}}
+    <div>{{name}}</div>
+    <div>{{text}}</div>
+    <div>{{powerCost}}</div>
+  {{/with}}
+{{/each}}

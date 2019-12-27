@@ -4,6 +4,7 @@ module.exports = function(grunt) {
     coffee: {
       compile: {
         options: {
+          bare: true,
           join: true
         },
         files: {
@@ -14,6 +15,7 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks('grunt-contrib-coffee');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
 
   grunt.registerTask('default', ['coffee']);
 };

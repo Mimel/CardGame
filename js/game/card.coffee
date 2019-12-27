@@ -1,8 +1,18 @@
+mysql = require 'mysql'
+
+#Temporary local connection.
+serverConn = mysql.createConnection {
+  host:     '127.0.0.1',
+  database: 'cardgame',
+  user:     'root',
+  password: ''
+}
+
 # The representation of a card.
 class Card
   constructor: (@name, @text, @powerCost) ->
 
-  # IF this card would abnormally affect the game state on play, override this function.
+  # If this card would abnormally affect the game state on play, override this function.
   play: (state) ->
     return state
 
@@ -14,6 +24,19 @@ class Card
   death: (state) ->
     return state
 
-class Monster extends Card
-  constructor: ->
-    super 'Monster', 'Test Description', 3
+# Initialize card dictionary.
+cardMappingTemplate = []
+serverConn.query 'SELECT name, description, powercost FROM Card',
+  (error, results, fields) ->
+    if error
+      console.log error
+    else
+      addCard = (card) ->
+        cardMappingTemplate.push {
+          name: card.name,
+          card: new Card card.name, card.description, card.powercost
+        }
+      addCard card for card in results
+    module.exports.cardtemplates = cardMappingTemplate
+
+module.exports.Card = Card
